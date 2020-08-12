@@ -1,9 +1,25 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+/**
+ * buildscript{} 是配置构建工具Gradle本身所需要的仓库和依赖的代码块.
+ */
 buildscript {
+
+    /**
+     * repositories{} 代码块，配置Gradle下载依赖的仓库地址.
+     * Gradle 内置支持的远程仓库地址有JCenter，Maven Center 和，Ivy 4.1版本开始内置支持google()。
+     * 也可以使用本地仓库或者配置我们自己的远程仓库地址。
+     * 如: maven { url 'https://jitpack.io' }
+     */
     repositories {
         google()
         jcenter()
     }
+
+
+    /**
+     * dependencies{} 代码块, 配置Gradle编译工程师需要的依赖.
+     */
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.0"
 
@@ -12,6 +28,10 @@ buildscript {
     }
 }
 
+/**
+ * allprojects{} 代码块, 配置整个Gradle工程都用到的仓库和依赖.
+ * 如果依赖不是被所有模块都需要，那应该将依赖配到需要它的模块级的build.gradle文件中。
+ */
 allprojects {
     repositories {
         google()
