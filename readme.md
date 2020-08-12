@@ -78,7 +78,7 @@ include ':app'
 
 #### 2.2 Gradle 构建文件 (build.gradle)
 
-##### 2.2.1 工程（顶级）构建文件
+##### 2.2.1 工程构建文件
 
 工程build.gradle文件，项目根目录。 用于定义适用于项目中所有模块的构建配置。默认情况下，这个顶级构建文件使用 buildscript {} 代码块来定义项目中所有模块共用的 Gradle 存储区和依赖项。以下代码示例描述的默认设置和 DSL 元素。
 
@@ -227,4 +227,28 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 }
+```
+
+
+
+#### 2.3 Gradle 属性文件  (.properties)
+
+##### 2.3.1 gradle.properties
+
+我们可以在其中配置项目范围的 Gradle 设置，例如 Gradle 后台进程的最大堆大小。如需了解详细信息，请参阅[构建环境](https://docs.gradle.org/current/userguide/build_environment.html)。
+
+```groovy
+# Project-wide Gradle settings.
+org.gradle.jvmargs=-Xmx2048m
+android.enableJetifier=true
+```
+
+
+
+##### 2.3.2 local.properties
+
+为构建系统配置本地环境属性，例如 SDK 安装路径。由于该文件的内容由 Android Studio 自动生成并且专用于本地开发者环境，因此我们不应该手动修改该文件，不应该将其纳入到版本控制系统中。
+
+```groovy
+sdk.dir=C\:\\Users\\luwei\\AppData\\Local\\Android\\Sdk
 ```
