@@ -1,2 +1,3 @@
+include ':sampleplugin'
 include ':app'
 rootProject.name = "GradlePlus"
