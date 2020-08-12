@@ -1,9 +1,30 @@
+/**
+ * 引用 Android plugin for Gradle
+ * 这样我们才可以在android{} 代码块中使用构建 Android APP 所需的特定编译选项。
+ */
 apply plugin: 'com.android.application'
 
+/**
+ * android{} 代码块, 配置构建Android工程的属性和配置.
+ */
 android {
+
+    /**
+     * compileSdkVersion: 编译时使用的Android API版本
+     */
     compileSdkVersion 29
+
+    /**
+     * buildToolsVersion: 指定Gradle编译APP时所使用的SDK编译工具、命令行工具和编译器的版本.
+     * 我们可以通过SDK Manager去下载使用到的编译工具.
+     */
     buildToolsVersion "30.0.0"
 
+    /**
+     * defaultConfig{} 代码块, 默认配置和编译变体入口.
+     * 还可以在这里动态的覆盖main/AndroidManifest.xml的属性。
+     *  在这个区块还可以设置产品风味，给不同的风味版本配置不同的属性值。
+     */
     defaultConfig {
         applicationId "com.loosu.gradleplus"
         minSdkVersion 16
@@ -14,14 +35,49 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    /**
+     * buildTypes {} 代码块, 中配置多个编译类型。
+     * 编译系统默认定义了两个类型：debug and release.。
+     * debug类型：默认的配置文件中没有展示出来，它包含了debug工具，使用debug key签名APK。
+     * release类型：使用Proguard设置，默认不签名APK。
+     */
     buildTypes {
         release {
+
+            /**
+             * 开启代码缩减
+             */
             minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
+    /**
+     * productFlavors{} 代码块, 区域可以配置不同的产品风味。
+     * 这里不同风味版本的配置可以覆盖掉 defaultConfig {} 中的设置。
+     * 产品风味是可选项，编译系统默认不会自动创建不同的产品风味。
+     * 下面例子创建了免费版和付费版两种产品风味。
+     * 每种产品风味都指定了自己的应用ID，这使得两种风味的版本可以同时安装在一个设备上。
+     */
+    flavorDimensions 'loosu'
+    productFlavors {
+        free {
+            dimension 'loosu'
+            applicationId "com.loosu.gradleplus.free"
+        }
+        pay {
+            dimension 'loosu'
+            applicationId "com.loosu.gradleplus.pay"
+        }
+    }
+
 }
 
+/**
+ * dependencies {} 代码块, 中指定本模块中所需要的依赖.
+ */
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.1.0'
