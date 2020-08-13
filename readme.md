@@ -282,19 +282,156 @@ sdk.dir=C\:\\Users\\luwei\\AppData\\Local\\Android\\Sdk
 
 ### 三. 第一个 Android Sutdio 插件
 
-#### 3.1 创建插件模块
+#### 3.1 创建插件
+
+##### 3.1.1 创建一个lib模块
 
 和正常的模块创建步骤一样，可以通过 **File** > **New** > **New Module** > **Android Library** 创建一个模块 。
+```java
+module
+	-libs
+	-src
+	-main
+		-java
+		-res
+		-AndroidManifest.xml
+	-build.gradle
+```
 
 
 
-#### 3.2 声明插件
+##### 3.1.2 改造成插件模块
+
+- 文件夹 `main/resources/gradle-plugins/` 必须安装此路径创建;
+- `{plugin name}.properties` 声明插件用于 apply plugin: {plugin name}
+
+```
+module
+	-src
+	-main
+		-java
+		-resources
+			-gradle-plugins
+				-{plugin name}.properties	// 是用于 apply plugin: {plugin name}
+	-build.gradle
+```
+
+下图是我修改后的目录结构：
+
+ ![gradle-plugins-module](E:\Code\Android\GradlePlus\readme\gradle-plugins-module.jpg)
 
 创建文件夹:  src/main/resources/META-INF/gradle-plugins
 
 创建.preperties文件：
 
 
+
+##### 3.1.3 编写插件功能
+
+修改build.gradle，添加插件需要用到的依赖。
+
+build.gradle (:helloworld-gradle-plugin)
+
+```groovy
+apply plugin: 'groovy'
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+```
+
+
+
+让插件被 apply 时，打印信息 "Hello Groovy World!!! "
+
+main/java/com/loosu/gradle/plugins/HelloWorldPlugin.java
+
+```java
+public class HelloWorldPlugin implements Plugin<Project> {
+
+    /**
+     * callback when gradle apply.
+     *
+     * @param project current project obj.
+     */
+    @Override
+    public void apply(Project project) {
+        DefaultGroovyMethods.println("Hello Groovy World!!! " + project);
+    }
+}
+```
+
+
+
+##### 3.1.4  插件与实现类关联
+
+/main/resources/META-INF/gradle-plugins/com.loosu.gradle.plugins.helloworld.properties
+
+```groovy
+implementation-class=com.loosu.gradle.plugins.HelloWorldPlugin
+```
+
+
+
+#### 3.2 上传插件
+
+1. 插件是要打包成 .jar 或 .aar  才能被IDE依赖；
+
+2. 正常情况是发布到maven cneter, 但现在为了方便在本地创建个maven仓库， 打包上传到本地.
+
+
+
+单独执行下install任务就能完成本地打包上传工作.
+
+build.gradle (:helloworld-gradle-plugin)
+
+```groovy
+...
+apply plugin: 'maven'
+
+group = 'com.loosu.plugins'
+version = '1.0.0'
+
+install {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../locale-maven')) {
+                pom.artifactId = 'hello-world-gradle-plugin'
+            }
+        }
+    }
+}
+...
+```
+
+
+
+#### 3.3 使用插件
+
+
+
+build.gradle (:project)
+
+```groovy
+buildscript {
+	...
+    repositories {
+        ...
+        maven {url uri('locale-maven')}
+        ...
+    }
+
+    dependencies {
+		...
+        classpath('com.loosu.plugins:hello-world-gradle-plugin:1.0.0')
+    }
+}
+```
+
+
+
+build.gradle (:app)
 
 ### 参考资料
 

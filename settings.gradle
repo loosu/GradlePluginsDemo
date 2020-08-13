@@ -1,4 +1,3 @@
 include ':helloworld-gradle-plugin'
-include ':sampleplugin'
 include ':app'
 rootProject.name = "GradlePlus"

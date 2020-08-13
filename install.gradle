@@ -1,0 +1,13 @@
+apply plugin: 'maven'
+
+insall(groupId, artifactId, version) {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('locale-maven')) {
+                pom.groupId = group
+                pom.artifactId = artifactId
+                pom.version = version
+            }
+        }
+    }
+}

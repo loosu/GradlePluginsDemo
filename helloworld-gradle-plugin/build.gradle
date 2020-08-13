@@ -13,7 +13,7 @@ version = '1.0.0'
 install {
     repositories {
         mavenDeployer {
-            repository(url: uri('locale-maven')) {
+            repository(url: uri('../locale-maven')) {
                 pom.artifactId = 'hello-world-gradle-plugin'
             }
         }

@@ -9,9 +9,11 @@ buildscript {
      * repositories{} 代码块，配置Gradle下载依赖的仓库地址.
      * Gradle 内置支持的远程仓库地址有JCenter，Maven Center 和，Ivy 4.1版本开始内置支持google()。
      * 也可以使用本地仓库或者配置我们自己的远程仓库地址。
-     * 如: maven { url 'https://jitpack.io' }
-     */
+     * 如: maven { url 'https://jitpack.io' }*/
     repositories {
+        // 本地maven仓库
+        maven {url uri('locale-maven')}
+
         google()
         jcenter()
     }
@@ -23,8 +25,10 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.0"
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        /**
+         * 如果拉取不到, 需先执行build.gradle(:helloworld-gradle-plugin) 中的 install.
+         */
+        classpath('com.loosu.plugins:hello-world-gradle-plugin:1.0.0')
     }
 }
 
@@ -36,6 +40,10 @@ allprojects {
     repositories {
         google()
         jcenter()
+        flatDir {
+            name 'local_respository'
+            dir  'sampleplugin/local_respository/libs'
+        }
     }
 }
 

@@ -3,6 +3,7 @@
  * 这样我们才可以在android{} 代码块中使用构建 Android APP 所需的特定编译选项。
  */
 apply plugin: 'com.android.application'
+apply plugin: 'com.loosu.gradle.plugins.helloworld'
 
 /**
  * android{} 代码块, 配置构建Android工程的属性和配置.
