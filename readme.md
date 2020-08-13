@@ -82,6 +82,31 @@ include ':app'
 
 工程build.gradle文件，项目根目录。 用于定义适用于项目中所有模块的构建配置。默认情况下，这个顶级构建文件使用 buildscript {} 代码块来定义项目中所有模块共用的 Gradle 存储区和依赖项。以下代码示例描述的默认设置和 DSL 元素。
 
+
+
+仓库类型：
+
+**flatDir**
+
+```groovy
+repositories {
+    flatDir name: 'libs', dirs: "$projectDir/libs"
+    flatDir dirs: ["$projectDir/libs1", "$projectDir/libs2"]
+}
+```
+
+
+
+**JCenter,  Center, Ivy**
+
+```groovy
+repositories {
+    maven   { url "http://repo.mycompany.com/maven2" }
+    jcenter { url "http://repo.mycompany.com/maven2" }
+    ivy     { url "http://repo.mycompany.com/maven2" }
+}
+```
+
 ```groovy
 /**
  * buildscript{} 是配置构建工具Gradle本身所需要的仓库和依赖的代码块.
@@ -252,3 +277,25 @@ android.enableJetifier=true
 ```groovy
 sdk.dir=C\:\\Users\\luwei\\AppData\\Local\\Android\\Sdk
 ```
+
+
+
+### 三. 第一个 Android Sutdio 插件
+
+#### 3.1 创建插件模块
+
+和正常的模块创建步骤一样，可以通过 **File** > **New** > **New Module** > **Android Library** 创建一个模块 。
+
+
+
+#### 3.2 声明插件
+
+创建文件夹:  src/main/resources/META-INF/gradle-plugins
+
+创建.preperties文件：
+
+
+
+### 参考资料
+
+[Gradle和Gradle插件](https://www.jianshu.com/p/75aac767eaff)
