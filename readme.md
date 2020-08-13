@@ -318,7 +318,7 @@ module
 
 下图是我修改后的目录结构：
 
- ![gradle-plugins-module](E:\Code\Android\GradlePlus\readme\gradle-plugins-module.jpg)
+ <img src=".\readme\gradle-plugins-module.jpg" alt="gradle-plugins-module"  />
 
 创建文件夹:  src/main/resources/META-INF/gradle-plugins
 
@@ -433,6 +433,14 @@ buildscript {
 
 build.gradle (:app)
 
-### 参考资料
+```groovy
+apply plugin: 'com.loosu.gradle.plugins.helloworld'
+```
+
+### 四. 参考资料
 
 [Gradle和Gradle插件](https://www.jianshu.com/p/75aac767eaff)
+
+[Gradle插件开发学习和实践](https://www.jianshu.com/p/32c150f0cb20)
+
+[如何使用Android Studio开发Gradle插件](https://blog.csdn.net/sbsujjbcy/article/details/50782830)
