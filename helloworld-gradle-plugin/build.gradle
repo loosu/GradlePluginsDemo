@@ -4,3 +4,18 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
 }
+
+apply plugin: 'maven'
+
+group = 'com.loosu.plugins'
+version = '1.0.0'
+
+install {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('locale-maven')) {
+                pom.artifactId = 'hello-world-gradle-plugin'
+            }
+        }
+    }
+}
